@@ -26,8 +26,6 @@ local utilsFolder = script.Utils
 
 -- FIXME
 local Signal = require(utilsFolder.Signal)
-
-local Switch = require(utilsFolder.Switch)
 local SliderFuncs = require(utilsFolder.SliderFuncs)
 
 Slider.__index = function(object, indexed)
@@ -248,23 +246,17 @@ end
 function Slider:Move()
 	self._data._value = SliderFuncs.getNewValue(self)
 
-	Switch(self._config.MoveType) {
-		[{"Tween", nil}] = function()
-			if self._data._currentTween then
-				self._data._currentTween:Cancel()
-			end
-			self._data._currentTween = TweenService:Create(self._data.Button, self._config.MoveInfo, {
-				Position = SliderFuncs.getNewPosition(self)
-			})
-			self._data._currentTween:Play()
-		end,
-		
-		["Instant"] = function()
-			self._data.Button.Position = SliderFuncs.getNewPosition(self)
-		end,
-		
-		["Default"] = function() end
-	}
+	if self._config.MoveType == "Tween" then
+		if self._data._currentTween then
+			self._data._currentTween:Cancel()
+		end
+		self._data._currentTween = TweenService:Create(self._data.Button, self._config.MoveInfo, {
+			Position = SliderFuncs.getNewPosition(self)
+		})
+		self._data._currentTween:Play()
+	elseif self._config.MoveType == "Instant" then
+		self._data.Button.Position = SliderFuncs.getNewPosition(self)
+	end
 	self.Changed:Fire(self._data._value)
 end
 

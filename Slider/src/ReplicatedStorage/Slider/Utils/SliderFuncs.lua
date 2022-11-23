@@ -1,7 +1,5 @@
 local SliderFuncs = {}
 
-local Switch = require(script.Parent:WaitForChild("Switch"))
-
 function SliderFuncs.snapToScale(val: number, step: number): number
 	return math.clamp(math.round(val / step) * step, 0, 1)
 end
@@ -41,10 +39,9 @@ function SliderFuncs.getNewPosition(self): UDim2
 
 	local newPercent = SliderFuncs.map(self._data._percent, 0, 1, minScale, maxScale, true)
 
-	return Switch(self._config.Axis) {
-		["X"] = UDim2.fromScale(newPercent, self._data.Button.Position.Y.Scale),
-		["Y"] = UDim2.fromScale(self._data.Button.Position.X.Scale, newPercent)
-	}
+	return
+		if self._config.Axis == "X" then UDim2.fromScale(newPercent, self._data.Button.Position.Y.Scale)
+		else UDim2.fromScale(self._data.Button.Position.X.Scale, newPercent)
 end
 
 function SliderFuncs.getScaleIncrement(self)
