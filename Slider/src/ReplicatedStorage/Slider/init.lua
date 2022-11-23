@@ -9,6 +9,8 @@
 -- [Created]: 22/12/2021
 -- [Updated]: 23/11/2022
 -- [Dev Forum Link]: https://devforum.roblox.com/t/1597785/
+
+-- THIS VERSION OF THE MODULE HAS BEEN MODIFIED SPECIFICALLY FOR TRIA.OS --
 -----------------------------------------------------------------------------------------
 
 --!nonstrict
@@ -22,7 +24,9 @@ assert(RunService:IsClient(), "Slider module can only be used on the Client!")
 
 local utilsFolder = script.Utils
 
+-- FIXME
 local Signal = require(utilsFolder.Signal)
+
 local Switch = require(utilsFolder.Switch)
 local SliderFuncs = require(utilsFolder.SliderFuncs)
 
